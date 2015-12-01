@@ -40,6 +40,10 @@ private:
 	{
 		this->size++;
 	}
+	void decSize()
+	{
+		this->size--;
+	}
 public:
 	friend ostream & operator<<(ostream &os, LinkedList *list);
 	LinkedList(const LinkedList &ll)
@@ -97,6 +101,35 @@ public:
 		tail->next = temp;
 		tail = temp;
 	}
+	void deleteAfter(Node *n)
+	{
+		Node *toBeDeleted = n->next;
+		n->next = toBeDeleted->next;
+		delete(toBeDeleted);
+		decSize();
+		if(size == 1)
+			tail = n;
+		
+	}
+	void pop()
+	{
+		if(size == 1)
+		{
+			delete(head);
+			head = tail = NULL;
+			decSize();
+		}
+		else
+		{
+			Node *temp = head->next;
+			delete(head);
+			decSize();
+			if(size == 1)
+				head = tail = temp;
+			else head = temp;
+			
+		}
+	}
 	void reverseFromMid()
 	{
 		int mid = ceil(size/2);
@@ -120,6 +153,33 @@ public:
 		appendNode->next = NULL;
 		tail = appendNode;
 	}
+	void deleteAllOccurences(int data)
+	{
+		cout<<"Enter"<<endl;
+		Node * pred;
+		Node * succ = head;
+		while(succ != NULL)
+		{
+			if(succ->data == data)
+			{
+				if(pred == NULL)
+				{
+					pop();
+					succ = head;
+				}	
+				else
+				{
+					succ = succ->next;
+					deleteAfter(pred);
+				}
+			}
+			else
+			{
+				pred = succ;
+				succ = succ->next;
+			}
+		}
+	}
 };
 
 ostream & operator<<(ostream &os, LinkedList& node)
@@ -140,10 +200,10 @@ int main(int argc ,char **argv)
 	list.insertBeginning(1);
 	list.insertBeginning(2);
 	list.insertBeginning(3);
-	list.insertTail(4);
+	list.insertTail(3);
 	list.insertTail(5);
-	list.insertBeginning(6);
-	list.insertBeginning(7);
+	list.insertBeginning(5);
+	list.insertBeginning(5);
 	list.insertBeginning(8);
 	list.insertBeginning(9);
 	cout<<list<<endl;
@@ -152,6 +212,9 @@ int main(int argc ,char **argv)
 	cout<<list2<<endl;
 	list.reverseFromMid();
 	cout<<"---"<<endl;
+	cout<<list<<endl;
+	cout<<"---**"<<endl;
+	list.deleteAllOccurences(10);
 	cout<<list<<endl;
 	return 0;
 }
