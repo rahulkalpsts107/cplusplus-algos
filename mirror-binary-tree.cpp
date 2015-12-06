@@ -1,9 +1,9 @@
 #include<iostream>
 #include<queue>
-#include<cmath>
-// all types of dfs traversals on a binary tree
 
 using namespace std;
+
+//Check if two trees are identical
 
 class Node
 {
@@ -64,17 +64,47 @@ public:
 		}
 	}
 
-	int retHeight(Node *node)
+	void inOrder(Node *node)
 	{
 		if(node == NULL)
-			return 0;
-		else return max(retHeight(node->left),retHeight(node->right)) +1;//change this to min to achieve min height
+			return;
+		else
+		{
+			inOrder(node->left);
+			cout<<node->data<<", ";
+			inOrder(node->right);
+		}
 	}
 };
 
+void recurseAndAdd(Node *node1 ,Node *node2)
+{
+	if(node1 != NULL)
+	{
+		if(node1->left != NULL)
+		{
+			node2->right = new Node(node1->left->data);
+			recurseAndAdd(node1->left,node2->right);
+		}
+		if(node1->right != NULL)
+		{
+			node2->left = new Node(node1->right->data);
+			recurseAndAdd(node1->right,node2->left);
+		}
+	}	
+}
+
+void makeMirrorBinaryTree(BinaryTree *tree1 ,BinaryTree *tree2) //Another efficient way - Do inplace and jut swap pointers!
+{
+	if(tree1->root != NULL)
+	{
+		tree2->addNode(tree1->root->data);
+		recurseAndAdd(tree1->root,tree2->root);
+	}
+}
+
 int main(int argc,char **argv)
 {
-
 	BinaryTree tree;
 	tree.addNode(1);
 	tree.addNode(2);
@@ -84,6 +114,12 @@ int main(int argc,char **argv)
 	tree.addNode(6);
 	tree.addNode(7);
 	tree.addNode(8);
-	cout<<"height is "<<tree.retHeight(tree.root)<<endl;
+	BinaryTree tree1;
+	makeMirrorBinaryTree(&tree ,&tree1);
+	tree.inOrder(tree.root);
+	cout<<endl;
+	cout<<"mirror is ";
+	tree1.inOrder(tree1.root);
+	cout<<endl;
 	return 0;
 }

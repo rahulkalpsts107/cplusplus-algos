@@ -1,9 +1,9 @@
 #include<iostream>
 #include<queue>
-#include<cmath>
-// all types of dfs traversals on a binary tree
 
 using namespace std;
+
+//Check if two trees are identical
 
 class Node
 {
@@ -63,18 +63,23 @@ public:
 			}
 		}
 	}
-
-	int retHeight(Node *node)
-	{
-		if(node == NULL)
-			return 0;
-		else return max(retHeight(node->left),retHeight(node->right)) +1;//change this to min to achieve min height
-	}
 };
 
-int main(int argc,char **argv)
+int checkIfSame(Node *t1 ,Node *t2)
 {
+	//cout<<"times "<<t1->data<<" "<<t2->data<<endl;
+	if(t1 == NULL && t2 == NULL)
+		return 1;
+	if(t1 != NULL && t2 != NULL)
+	{
+		if(t1->data == t2->data)
+			return 1 & checkIfSame(t1->left,t2->left) & checkIfSame(t1->right,t2->right);
+	}
+	return 0;
+}
 
+int main(int argc ,char **argv)
+{
 	BinaryTree tree;
 	tree.addNode(1);
 	tree.addNode(2);
@@ -83,7 +88,16 @@ int main(int argc,char **argv)
 	tree.addNode(5);
 	tree.addNode(6);
 	tree.addNode(7);
-	tree.addNode(8);
-	cout<<"height is "<<tree.retHeight(tree.root)<<endl;
+	tree.addNode(9);
+	BinaryTree tree1;
+	tree1.addNode(1);
+	tree1.addNode(2);
+	tree1.addNode(3);
+	tree1.addNode(4);
+	tree1.addNode(5);
+	tree1.addNode(6);
+	tree1.addNode(7);
+	tree1.addNode(10);
+	cout<<checkIfSame(tree.root ,tree1.root)<<endl;
 	return 0;
 }
