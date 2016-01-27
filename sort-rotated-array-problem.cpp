@@ -18,10 +18,12 @@ int modifiedBinSearch(int *arr,int start, int end)
 		if(arr[mid] <arr[mid-1])
 			ret = mid;
 		if(ret == -1)
-		if(arr[end] > arr[mid])
-			ret = modifiedBinSearch(arr,start,mid-1);
-		else
-			ret = modifiedBinSearch(arr,mid+1,end);
+		{
+			if(arr[end] > arr[mid])
+				ret = modifiedBinSearch(arr,start,mid-1);
+			else
+				ret = modifiedBinSearch(arr,mid+1,end);
+		}
 	}
 	return ret;
 }
@@ -29,6 +31,7 @@ int modifiedBinSearch(int *arr,int start, int end)
 void sortRotatedArray(int *arr ,int size)
 {
 	int resetPoint = modifiedBinSearch(arr,0,size);
+	cout<<"reset point"<<resetPoint<<endl;
 	if(resetPoint != -1)
 	{
 		int curr = resetPoint;
@@ -49,7 +52,7 @@ void sortRotatedArray(int *arr ,int size)
 
 int main(int argc,char **argv)
 {
-	int arr[] = {1,2};
+	int arr[] = {8,7,6,5,4,3,1,2};
 	int size = sizeof(arr)/sizeof(arr[0]);
 	sortRotatedArray(arr,size-1);
 	return 0;

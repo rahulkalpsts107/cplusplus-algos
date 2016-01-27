@@ -47,11 +47,13 @@ public:
 				if(temp->left == NULL)
 				{
 					temp->left = new Node(data);
+					size++;
 					return;
 				}
 				else if(temp->right == NULL)
 				{
 					temp->right = new Node(data);
+					size++;
 					return;
 				}
 				else

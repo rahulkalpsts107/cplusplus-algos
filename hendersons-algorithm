@@ -1,0 +1,12 @@
+bool flag[2] = {false};
+int turn = 0;
+
+void P0()
+{
+	
+}
+
+void P1()
+{
+	
+}

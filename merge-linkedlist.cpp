@@ -118,6 +118,66 @@ void merge(Node *head1, Node *head2, int out[])
 	}
 }
 
+Node * inMerge(Node *h1 , Node *h2)
+{
+	Node *head = NULL;
+	Node *list = NULL;
+	while(h1 && h2)
+	{
+		cout<<"hi "<<h1->data<<" "<<h2->data<<endl;
+		if(h1->data < h2->data)
+		{
+			if(list == NULL)
+				head = list = h1;
+			else
+				list->next = h1;
+			list = h1;
+			h1= h1->next;
+		}
+		else if(h2->data < h1->data)
+		{
+			if(list == NULL)
+				head = list = h2;
+			else
+				list->next = h2;
+			list = h2;
+			h2= h2->next;
+		}
+		else 
+		{
+			if(list == NULL)
+				head = list = h1;
+			else
+				list->next = h1;
+			list = h1;
+			h1= h1->next;
+			h2= h2->next;
+		}
+	}
+	if(h1)
+	{
+		while(h1)
+		{
+			list->next = h1;
+			list = h1;
+			h1=h1->next;
+		}
+	}
+	else if(h2)
+	{
+		while(h2)
+		{
+			list->next = h2;
+			list = h2;
+			h2=h2->next;
+		}
+	}
+	else{}
+	if(list != NULL)
+		list->next = NULL;
+	return head;
+}
+
 ostream & operator<<(ostream &os, LinkedList& node)
 {
 	string ret;
@@ -143,11 +203,17 @@ int main(int argc,char **argv)
 	cout<<list1<<endl;
 	cout<<list2<<endl;
 	int *arr = new int[list1.size+list2.size];
-	merge(list1.head,list2.head,arr);
+	Node * n = inMerge(list1.head,list2.head);
+	//merge(list1.head,list2.head,arr);
 	//arrReverse(arr,list1.size+list2.size);//No need of reverse , since we are adding to head of linked list so it will be any ways reverse sorted
 	//just merge and add to head of Linked list
-	LinkedList list3;
-	list3.listCopy(arr,list1.size+list2.size);
-	cout<<list3<<endl;
+	//LinkedList list3;
+	//list3.listCopy(arr,list1.size+list2.size);
+	while(n)
+	{
+		cout<<n->data<<endl;
+		n=n->next;
+	}
+
 	return 0;
 }

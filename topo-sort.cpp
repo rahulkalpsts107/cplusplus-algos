@@ -23,16 +23,17 @@ public:
 			visited[i]=false;
 	}
 	
-	void topoRecurse(int v)
+	void topoRecurse(int v,vector<int> &vert)
 	{
 		visited[v] = true;
 		for(vector<int>::iterator it = adjList[v].begin(); it < adjList[v].end() ; it++)
 		{
 			if(!visited[*it])
 			{
-				topoRecurse(*it);
+				topoRecurse(*it,vert);
 			}
 		}
+		//vert.push_front(v); no alternative to push_front since its inefficient and requires shuffling
 		topoStack->push(v);
 	}
 	
@@ -44,18 +45,22 @@ public:
 	void topoSort()
 	{
 		int v = 0;
+		vector<int> vert;
 		for (;v < size ; v++)
 		{
 				if(!visited[v])
-					topoRecurse(v);
+					topoRecurse(v,vert);
 		}
 		int i = topoStack->size();
+		/*
 		while(i)
 		{
 			cout<<topoStack->top()<<", ";
 			topoStack->pop();
 			--i;
-		}
+		}*/
+		for(vector<int>::iterator it = vert.begin() ; it!=vert.end() ; it++)
+			cout<<*it<<", ";
 		cout<<endl;
 	}
 };
