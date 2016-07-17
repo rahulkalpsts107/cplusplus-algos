@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 	sort(jobs,jobs+events,sortFunction);
 	int size = 0;
 	returnBestJobs(jobs,output,events,&size);
-	cout<<"returned activities "<<size<<endl;
+	cout<<"returned activities "<<size<<endl;q
 	int i;
 	for(i=0;i<size;i++)
 	{

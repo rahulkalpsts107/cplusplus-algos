@@ -121,7 +121,7 @@ int main(int argc ,char **argv)
 	ll.insert(4);
 	ll.insert(5);
 	//ll.deleteFromBack(4);
-	ll.disp();
+	ll .disp();
 	Node * node = ll.reverseLinkedList(ll.head);
 	ll.disp();
 	return 0;

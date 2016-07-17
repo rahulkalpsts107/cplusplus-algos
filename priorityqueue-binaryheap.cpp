@@ -57,7 +57,7 @@ private:
 			cout<<node<<endl;
 			int leftNode = left(node);
 			int rightNode = right(node);
-			int max = -1;
+			int max = -1
 			int idx = -1;
 			if(leftNode <= curr)
 				if(implicit[leftNode] > implicit[node])

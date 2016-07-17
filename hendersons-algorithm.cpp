@@ -24,4 +24,4 @@ void P1()
 		/*Critical section*/
 		flag[1] = false;
 	}
-}
+}	
